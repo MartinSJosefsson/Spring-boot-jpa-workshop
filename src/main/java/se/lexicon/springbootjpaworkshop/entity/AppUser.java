@@ -1,9 +1,17 @@
 package se.lexicon.springbootjpaworkshop.entity;
 
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 @Entity //Turning it into an entity
 public class AppUser {
 
@@ -22,5 +30,15 @@ public class AppUser {
     @JoinColumn(name = "details_id")
     private Details userDetails;
 
+    public AppUser() {
+
+    }
+
+    public AppUser(String username, String password, LocalDate regDate, Details userDetails) {
+        this.username = username;
+        this.password = password;
+        this.regDate = regDate;
+        this.userDetails = userDetails;
+    }
 }
 
