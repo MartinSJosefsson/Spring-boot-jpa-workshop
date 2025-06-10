@@ -4,16 +4,17 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
-@Entity
+@Entity //Turning it into an entity
 public class AppUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
+    @Column(updatable = false, name = "app_user_id")
     private int id;
 
-    @Column(unique = true)
+    @Column(unique = true, length = 100)
     private String username;
+    @Column(nullable = false, length = 100)
     private String password;
     private LocalDate regDate;
 
