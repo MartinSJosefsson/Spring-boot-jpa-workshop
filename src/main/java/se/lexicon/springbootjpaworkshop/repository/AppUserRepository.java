@@ -6,10 +6,17 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import se.lexicon.springbootjpaworkshop.entity.AppUser;
 
+import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Optional;
+
 @Repository
 public interface AppUserRepository extends CrudRepository<AppUser, Integer> {
 
-    @Query(value = "SELECT au FROM AppUser AS au WHERE au.username = :userName")
-    AppUser findAppUserByUsername(@Param("userName") String userName);
+    Optional<AppUser> findAppUserByUsername(String username);
+    Optional<AppUser> findAppUserByUserDetails_Id(Integer id);
+    Collection<AppUser> findAppUserByRegDateBetween(LocalDate regDateAfter, LocalDate regDateBefore);
+    Optional<AppUser> findAppUsersByUserDetails_Email(String userDetailsEmail);
+
 
 }
