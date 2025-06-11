@@ -76,7 +76,7 @@ public class AppUserRepositoryTest {
         //Arrange
         AppUser expected = user1;
         //Act
-        AppUser result = appUserRepository.findAppUsersByUsername("test").get();
+        AppUser result = appUserRepository.findAppUserByUsername("test").get();
         //Assert
         assertEquals(expected, result);
     }
@@ -108,7 +108,7 @@ public class AppUserRepositoryTest {
         int detailsId = user1.getUserDetails().getId();
 
         //Act
-        AppUser result = appUserRepository.findAppUsersByUserDetails_Id(detailsId).get();
+        AppUser result = appUserRepository.findAppUserByUserDetails_Id(detailsId).get();
 
         //Assert
         assertNotNull(result);
@@ -166,7 +166,7 @@ public class AppUserRepositoryTest {
         int nonExistentId = 99999;
 
         //Act & Assert
-        assertTrue(appUserRepository.findAppUsersByUserDetails_Id(nonExistentId).isEmpty());
+        assertTrue(appUserRepository.findAppUserByUserDetails_Id(nonExistentId).isEmpty());
     }
 
     @Test
@@ -186,7 +186,7 @@ public class AppUserRepositoryTest {
         String nonExistentUsername = "nonexistentuser";
 
         //Act & Assert
-        assertTrue(appUserRepository.findAppUsersByUsername(nonExistentUsername).isEmpty());
+        assertTrue(appUserRepository.findAppUserByUsername(nonExistentUsername).isEmpty());
     }
 
     @Test
@@ -210,7 +210,7 @@ public class AppUserRepositoryTest {
         String upperCaseUsername = "TEST"; // original is "test"
 
         //Act
-        Optional<AppUser> result = appUserRepository.findAppUsersByUsername(upperCaseUsername);
+        Optional<AppUser> result = appUserRepository.findAppUserByUsername(upperCaseUsername);
 
         //Assert
         assertTrue(result.isEmpty());
