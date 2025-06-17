@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 //Lombok
 @NoArgsConstructor // Adds empty constructor which is needed for JPA
@@ -34,6 +35,11 @@ public class AppUser {
     @OneToOne(cascade = CascadeType.ALL) // Adds a relationship one to one
     @JoinColumn(name = "details_id") // Foreign key of details
     private Details userDetails;
+
+
+    @OneToMany(mappedBy = "borrower")
+    List<BookLoan> bookLoans;
+
 
     public AppUser(String username, String password, LocalDate regDate, Details userDetails) {
         this.username = username;
