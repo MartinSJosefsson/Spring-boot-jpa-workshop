@@ -3,6 +3,10 @@ package se.lexicon.springbootjpaworkshop.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
@@ -31,12 +35,19 @@ public class Book {
     @Column(nullable = false)
     private int maxLoanDays;
 
+    @ManyToMany(mappedBy = "books") //Indicats that it's the author who is the owning side
+    private List<Author> authors;
+
+
     public Book(String isbn, String title, int maxLoanDays) {
         this.isbn = isbn;
         this.title = title;
         this.maxLoanDays = maxLoanDays;
 
     }
+
+    @PrePersist
+    private void onCreation() {this.isbn = String.valueOf(UUID.randomUUID());}
 
 
 }

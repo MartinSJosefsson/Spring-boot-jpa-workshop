@@ -20,7 +20,7 @@ public interface BookLoanRepository extends CrudRepository<BookLoan, Integer> {
     List<BookLoan> findBookLoansByDueDateIsAfter(LocalDate dueDateAfter);
     List <BookLoan> findBookLoansByLoanDateBetween (LocalDate loanDate,LocalDate dueDate);
 
-    @Modifying
+    @Modifying //Allows the use of update and insert
     @Query(value = "UPDATE BookLoan AS bl set bl.returned = false WHERE bl.id = :bookLoanId")
     Optional<BookLoan> markBookLoanFalseById(@Param("bookLoanId") int bookLoanId);
 }
