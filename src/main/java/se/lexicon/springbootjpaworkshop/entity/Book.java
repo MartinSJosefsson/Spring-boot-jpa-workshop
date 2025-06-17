@@ -22,7 +22,7 @@ public class Book {
     private int id;
 
     @Getter
-    @Column (nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String isbn;
 
     @Getter
@@ -35,6 +35,7 @@ public class Book {
     @Column(nullable = false)
     private int maxLoanDays;
 
+    @Getter
     @ManyToMany(mappedBy = "books") //Indicats that it's the author who is the owning side
     private List<Author> authors;
 
@@ -47,8 +48,26 @@ public class Book {
     }
 
     @PrePersist
-    private void onCreation() {this.isbn = String.valueOf(UUID.randomUUID());}
+    private void onCreation() {
+        this.isbn = String.valueOf(UUID.randomUUID());
+    }
+
+    public void addAuthor(Author author) {
+        if (author == null) throw new IllegalArgumentException("Author cannot be null.");
+        if (!this.authors.contains(author)) {
+            this.authors.add(author);
+            author.addBook(this);
+
+        }
+    }
+            public void removeAuthor (Author author){
+                if (author == null) throw new IllegalArgumentException("Author cannot be null.");
+                if (this.authors.contains(author)) {
+                    this.authors.remove(author);
+                    author.removeBook(this);
+                }
+            }
 
 
-}
+        }
 
